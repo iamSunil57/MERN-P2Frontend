@@ -1,0 +1,47 @@
+1. Redux Toolkit:
+It is used for state management and more reliable than Redux as it configure actions itself.
+
+//TERMINOLOGY
+1.Store: Collection of slices and doesn't exist without slices.
+2.Slice: Space that stores data of specific components like product,user cart etc..
+3.Reducers: Agent that put or fetch data from one components to another. It is neutral so action is attached to it.
+4.Actions: Operation performed by reducers.
+
+//COMMANDS
+1.npm create vite@latest
+2. ./      //To name project as your created folder name
+3.Package Name : 'xyz'
+4.Framework React
+5.Variant: TypeScript
+6.npm install
+7.npm run dev
+
+//TO INTEGRATE TAILWIND IN REACT VITE:
+8.npm install -D tailwindcss postcss autoprefixer
+9.npx tailwindcss init -p
+
+//REDUX TOOLKIT:
+10.npm install @reduxjs/toolkit react-redux
+11.npm i react-router-dom :for Routing
+
+12.npm i axios
+
+
+//TAILWIND CSS SITES
+
+1.Tailwind components
+2.Tailkit
+3.Tailwind CSS
+
+// CORS error occur if two protocol or port of backend and frontend varies:
+1. npm i cors
+2. npm i --save-dev @types/cors
+3. "app.ts" import cors from 'cors'
+ app.use(cors({
+    origin : '*'
+ }))
+
+
+
+Notes:
+1.// Hook's in react-redux like useDispatch() , useSelector() don't have types so we don't use them instead we create own hooks.
