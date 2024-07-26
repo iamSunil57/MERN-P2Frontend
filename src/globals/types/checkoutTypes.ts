@@ -1,3 +1,5 @@
+import { Status } from "./types";
+
 export enum PaymentMethod {
   COD = "cod",
   KHALTI = " khalti",
@@ -5,6 +7,10 @@ export enum PaymentMethod {
 export interface ItemDetails {
   productId: string;
   quantity: number;
+}
+
+export interface OrderResponseItem extends ItemDetails {
+  orderId: string;
 }
 export interface OrderData {
   phoneNumber: string;
@@ -14,4 +20,10 @@ export interface OrderData {
     paymentMethod: PaymentMethod;
   };
   items: ItemDetails[];
+}
+
+export interface OrderResponseData {
+  items: OrderResponseItem[];
+  status: Status;
+  khaltiUrl: string | null;
 }
