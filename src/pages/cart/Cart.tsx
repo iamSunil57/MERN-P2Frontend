@@ -5,11 +5,17 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const Cart = () => {
   const { items } = useAppSelector((state) => state.carts);
+  console.log("Cart items:", items); // Debugging: log cart items
+
   const dispatch = useAppDispatch();
+
   const handleDelete = (productId: string) => {
+    console.log("Deleting productId:", productId); // Debug line
     dispatch(deleteCartItem(productId));
   };
+
   const handleUpdate = (productId: string, quantity: number) => {
+    console.log("Updating productId:", productId, "Quantity:", quantity); // Debug line
     dispatch(updateCartItem(productId, quantity));
   };
   const totalItems = items.reduce((total, item) => item?.quantity + total, 0);
