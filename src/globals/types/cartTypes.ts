@@ -3,6 +3,7 @@ import { Status } from "./types";
 
 export interface CartItem {
   Product: Product;
+  productId: string;
   quantity: number;
 }
 

@@ -27,6 +27,7 @@ const Checkout = () => {
     },
     items: [],
   });
+
   const handlePaymentMethod = (e: ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value as PaymentMethod);
     setData({
@@ -36,7 +37,6 @@ const Checkout = () => {
       },
     });
   };
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData({
@@ -44,16 +44,16 @@ const Checkout = () => {
       [name]: value,
     });
   };
-
   let subtotal = items.reduce(
-    (total, item) => item?.Product?.productPrice * item?.quantity + total,
+    (total, item) => item.Product.productPrice * item.quantity + total,
     0
   );
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const itemDetails: ItemDetails[] = items.map((item) => {
       return {
-        productId: item.Product.id,
+        productId: item.productId,
         quantity: item.quantity,
       };
     });
@@ -61,21 +61,24 @@ const Checkout = () => {
     const orderData = {
       ...data,
       items: itemDetails,
-      totalAmount: subtotal,
+      totalAmount: subtotal + 100,
     };
     await dispatch(orderItem(orderData));
-
-    if (khaltiUrl) {
-      window.location.href = khaltiUrl;
-    }
+    // if(status === Status.SUCCESS){
+    //   alert("Order Placed successfully")
+    // }
   };
 
   useEffect(() => {
+    if (khaltiUrl) {
+      window.location.href = khaltiUrl;
+      return;
+    }
     if (status === Status.SUCCESS) {
-      alert("Order Placed Successfully");
+      alert("Order Placed successfully");
       navigate("/");
     }
-  }, [status, dispatch]);
+  }, [status, khaltiUrl]);
 
   return (
     <>
@@ -104,13 +107,13 @@ const Checkout = () => {
                     />
                     <div className="flex w-full flex-col px-4 py-4">
                       <span className="font-semibold">
-                        {item?.Product?.productName}{" "}
+                        {item?.Product?.productName}
                       </span>
                       <span className="float-right text-gray-400">
-                        Qty :{item?.quantity}
+                        Qty :{item?.quantity}{" "}
                       </span>
                       <p className="text-lg font-bold">
-                        Rs. {item?.Product?.productPrice}
+                        Rs. {item?.Product?.productPrice}{" "}
                       </p>
                     </div>
                   </div>
@@ -191,11 +194,9 @@ const Checkout = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="Your Phone Number"
                   onChange={handleChange}
+                  placeholder="Your Phone Number"
                 />
-
-                <p></p>
               </div>
 
               <label
@@ -214,7 +215,6 @@ const Checkout = () => {
                     placeholder="Street Address"
                     onChange={handleChange}
                   />
-                  <p></p>
                   <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                     <img
                       className="h-4 w-4 object-contain"
@@ -242,6 +242,7 @@ const Checkout = () => {
                 </p>
               </div>
             </div>
+
             {paymentMethod === PaymentMethod.KHALTI ? (
               <button
                 className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
