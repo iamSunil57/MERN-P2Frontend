@@ -80,7 +80,7 @@ const MyOrderDetails = () => {
                       Payment Method
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      {orderDetails[0].Order.Payment.paymentMethod}
+                      {orderDetails[0]?.Order?.Payment?.paymentMethod}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -88,7 +88,7 @@ const MyOrderDetails = () => {
                       Payment Status
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      {orderDetails[0].Order.Payment.paymentStatus}
+                      {orderDetails[0]?.Order?.Payment?.paymentStatus}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -96,13 +96,17 @@ const MyOrderDetails = () => {
                       Order Status
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      {orderDetails[0].Order.orderStatus}
+                      {orderDetails[0]?.Order?.orderStatus}
                     </p>
                   </div>
                 </div>
                 <div className="flex justify-between items-center w-full">
-                  <p className="text-base dark:text-white font-semibold leading-4 text-gray-800"></p>
-                  <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600"></p>
+                  <p className="text-base dark:text-white font-semibold leading-4 text-gray-800">
+                    Total
+                  </p>
+                  <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
+                    {orderDetails[0]?.Order?.totalAmount}
+                  </p>
                 </div>
               </div>
               <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
@@ -148,10 +152,10 @@ const MyOrderDetails = () => {
                   <div className="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row items-center md:items-start">
                     <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
                       <p className="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">
-                        Address:{orderDetails[0].Order.shippingAddress}
+                        Address:{orderDetails[0]?.Order?.shippingAddress}
                       </p>
                       <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                        Phone:{orderDetails[0].Order.phoneNumber}
+                        Phone:{orderDetails[0]?.Order?.phoneNumber}
                       </p>
                     </div>
                   </div>
