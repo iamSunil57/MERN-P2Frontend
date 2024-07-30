@@ -3,6 +3,7 @@ import { Status } from "../globals/types/types";
 import {
   MyOrdersData,
   OrderData,
+  OrderDetails,
   OrderResponseData,
   OrderResponseItem,
 } from "../globals/types/checkoutTypes";
@@ -14,6 +15,7 @@ const initialState: OrderResponseData = {
   status: Status.LOADING,
   khaltiUrl: null,
   myOrders: [],
+  orderDetails: [],
 };
 
 const orderSlice = createSlice({
@@ -41,11 +43,22 @@ const orderSlice = createSlice({
     ) {
       state.khaltiUrl = action.payload;
     },
+    setMyOrderDetails(
+      state: OrderResponseData,
+      action: PayloadAction<OrderDetails[]>
+    ) {
+      state.orderDetails = action.payload;
+    },
   },
 });
 
-export const { setItems, setStatus, setKhaltiUrl, setMyOrders } =
-  orderSlice.actions;
+export const {
+  setItems,
+  setStatus,
+  setKhaltiUrl,
+  setMyOrders,
+  setMyOrderDetails,
+} = orderSlice.actions;
 export default orderSlice.reducer;
 
 export function orderItem(data: OrderData) {
@@ -71,8 +84,8 @@ export function orderItem(data: OrderData) {
 }
 
 //To fetch MyOrders:
-export function fetchMyOrders(data: OrderData) {
-  return async function orderItemThunk(dispatch: AppDispatch) {
+export function fetchMyOrders() {
+  return async function fetchMyOrdersThunk(dispatch: AppDispatch) {
     dispatch(setStatus(Status.LOADING));
     try {
       const response = await APIAuthenticated.get("/order/customer");
@@ -80,6 +93,25 @@ export function fetchMyOrders(data: OrderData) {
       if (response.status === 200) {
         dispatch(setStatus(Status.SUCCESS));
         dispatch(setMyOrders(response.data.data));
+      } else {
+        dispatch(setStatus(Status.ERROR));
+      }
+    } catch (error) {
+      dispatch(setStatus(Status.ERROR));
+    }
+  };
+}
+
+//Order Details:
+export function fetchMyOrderDetails(id: string) {
+  return async function fetchMyOrderDetailsThunk(dispatch: AppDispatch) {
+    dispatch(setStatus(Status.LOADING));
+    try {
+      const response = await APIAuthenticated.get("/order/customer/" + id);
+
+      if (response.status === 200) {
+        dispatch(setStatus(Status.SUCCESS));
+        dispatch(setMyOrderDetails(response.data.data));
       } else {
         dispatch(setStatus(Status.ERROR));
       }
