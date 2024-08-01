@@ -18,7 +18,7 @@ const MyOrderDetails = () => {
     if (id) {
       dispatch(fetchMyOrderDetails(id));
     }
-  });
+  }, []);
 
   const handleCancelOrder = async () => {
     if (id) {
