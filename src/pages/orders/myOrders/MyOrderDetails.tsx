@@ -1,19 +1,33 @@
 import React, { useEffect } from "react";
 import Navbar from "../../../globals/components/navbar/Navbar";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { fetchMyOrderDetails } from "../../../store/checkoutSlice";
-import { useParams } from "react-router-dom";
+import {
+  cancelMyOrder,
+  fetchMyOrderDetails,
+} from "../../../store/checkoutSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { OrderStatus } from "../../../globals/types/checkoutTypes";
 
 const MyOrderDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { orderDetails } = useAppSelector((state) => state.orders);
-  console.log(orderDetails);
+  // console.log(orderDetails);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) {
       dispatch(fetchMyOrderDetails(id));
     }
   });
+
+  const handleCancelOrder = async () => {
+    if (id) {
+      await dispatch(cancelMyOrder(id));
+      await dispatch(fetchMyOrderDetails(id));
+      navigate("/myorders");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -23,7 +37,7 @@ const MyOrderDetails = () => {
             Order Details
           </h1>
           <p className="text-base dark:text-gray-500 font-medium leading-6 text-gray-600">
-            {new Date(orderDetails[0]?.Order.createdAt).toLocaleDateString()}
+            {new Date(orderDetails[0]?.Order?.createdAt).toLocaleDateString()}
           </p>
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
@@ -37,17 +51,17 @@ const MyOrderDetails = () => {
                   return (
                     <div
                       className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
-                      key={order.Order.id}
+                      key={order?.Order?.id}
                     >
                       <div className="pb-4 md:pb-8 w-full md:w-40">
                         <img
                           className="w-full hidden md:block"
-                          src={order.Product.productImage}
+                          src={order?.Product?.productImage}
                           alt="dress"
                         />
                       </div>
                       <p className="text-base dark:text-white xl:text-lg leading-6">
-                        {order.Product.productName}
+                        {order?.Product?.productName}
                       </p>
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
                         <div className="w-full flex flex-col justify-start items-start space-y-8">
@@ -55,13 +69,13 @@ const MyOrderDetails = () => {
                         </div>
                         <div className="flex justify-between space-x-8 items-start w-full">
                           <p className="text-base dark:text-white xl:text-lg leading-6">
-                            Rs. {order.Product.productPrice}
+                            Rs. {order?.Product?.productPrice}
                           </p>
                           <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                            Qty: {order.quantity}
+                            Qty: {order?.quantity}
                           </p>
                           <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                            Rs. {order.Product.productPrice * order.quantity}
+                            Rs. {order?.Product?.productPrice * order?.quantity}
                           </p>
                         </div>
                       </div>
@@ -160,23 +174,18 @@ const MyOrderDetails = () => {
                     </div>
                   </div>
                   <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-                    <>
-                      <button
-                        className="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800"
-                        style={{ marginTop: "10px" }}
-                      >
-                        Edit Order
-                      </button>
-
+                    {orderDetails[0]?.Order?.orderStatus !==
+                      OrderStatus.Cancelled && (
                       <button
                         className="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-3 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800"
                         style={{ marginTop: "10px" }}
+                        onClick={handleCancelOrder}
                       >
                         Cancel Order
                       </button>
-                    </>
+                    )}
                   </div>
-                  <div className="flex w-full justify-center items-center md:justify-start md:items-start">
+                  {/* <div className="flex w-full justify-center items-center md:justify-start md:items-start">
                     <button
                       className="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800"
                       style={{
@@ -187,7 +196,7 @@ const MyOrderDetails = () => {
                     >
                       Delete Order
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

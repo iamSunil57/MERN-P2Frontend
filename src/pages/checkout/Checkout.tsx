@@ -61,7 +61,7 @@ const Checkout = () => {
     const orderData = {
       ...data,
       items: itemDetails,
-      totalAmount: subtotal + 100,
+      totalAmount: subtotal,
     };
     await dispatch(orderItem(orderData));
     // if(status === Status.SUCCESS){
