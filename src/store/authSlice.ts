@@ -2,13 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { API } from "../http";
 import { Status } from "../globals/types/types";
 
-interface User {
-  username: string;
-  email: string;
-  password: string;
-  token: string;
-}
-
 interface registerData {
   username: string;
   email: string;
@@ -17,6 +10,13 @@ interface registerData {
 interface LoginData {
   email: string;
   password: string;
+}
+
+interface User {
+  username: string;
+  email: string;
+  password: string;
+  token: string;
 }
 
 export interface AuthState {

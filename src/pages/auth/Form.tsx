@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 const Form: React.FC<Props> = ({ type, onSubmit }) => {
   const [userData, setUserData] = useState<UserDataType>({
     username: "",
-    email: "string",
+    email: "",
     password: "",
   });
 
