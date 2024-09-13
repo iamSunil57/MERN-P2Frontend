@@ -18,11 +18,15 @@ const Home = () => {
         <h1 className="text-3xl text-black font-bold text-center mt-4">
           Top products:
         </h1>
-        <div className=" flex justify-center">
-          {product.length > 0 &&
-            product.map((pd) => {
-              return <Card key={pd.id} data={pd} />;
-            })}
+        <div className="w-full">
+          <section className="container w-full mx-auto p-0 md:py-2">
+            <section className="p-2 md:p-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 items-start justify-center">
+              {product.length > 0 &&
+                product.map((pd) => {
+                  return <Card key={pd.id} data={pd} />;
+                })}
+            </section>
+          </section>
         </div>
       </div>
     </>

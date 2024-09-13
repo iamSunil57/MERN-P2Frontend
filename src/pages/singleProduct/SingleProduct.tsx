@@ -12,7 +12,6 @@ const SingleProduct = () => {
   console.log(SingleProduct);
   useEffect(() => {
     if (id) {
-      console.log("triggered", id);
       dispatch(fetchByProductId(id));
     }
   }, []);

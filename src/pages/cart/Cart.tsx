@@ -58,7 +58,7 @@ const Cart = () => {
                         <div className="flex items-center border-gray-100">
                           <span
                             onClick={() =>
-                              handleUpdate(item?.productId, item?.quantity - 1)
+                              handleUpdate(item?.Product.id, item?.quantity - 1)
                             }
                             className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                           >
@@ -73,7 +73,7 @@ const Cart = () => {
                           />
                           <span
                             onClick={() =>
-                              handleUpdate(item.productId, item?.quantity + 1)
+                              handleUpdate(item.Product.id, item?.quantity + 1)
                             }
                             className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                           >
