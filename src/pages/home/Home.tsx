@@ -3,6 +3,7 @@ import Card from "../../globals/components/card/Card";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Hero from "./components/Hero";
 import { fetchProducts } from "../../store/productSlice";
+import Footer from "../../globals/components/footer/Footer";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const Home = () => {
             </section>
           </section>
         </div>
+        <Footer />
       </div>
     </>
   );
